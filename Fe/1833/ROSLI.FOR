@@ -1,0 +1,30 @@
+      PROGRAM DIFFUSION CONSTANT USING ROSENFELD 
+CC    T IN K,DIFF IN E-09 m2/s, ETA IN mPa.s 
+CC    NUMBER DENSITY (DENA) IN /ANGS**3.0
+      IMPLICIT REAL*8 (A-H,O-Z)
+      
+
+      OPEN(5,FILE='DIFIN.DAT',STATUS='OLD')
+      READ(5,*)SE,DENA
+      T=1833.0
+      ATM=55.85
+      AKB=1.38
+      COND=7.738
+      CONE=0.01292
+      
+      ETASTR=0.4*EXP(-0.7*SE)
+C      PRINT*,ETASTR
+      ETA=CONE*ETASTR*((ATM*AKB*T)**0.50)*(DENA**0.666)
+C      PRINT*,ETA
+
+      DSTR=0.6*EXP(0.8*SE)
+      
+      DIFFN=((AKB*T/ATM)**0.50)
+      DIFFD=(DENA**0.333)
+      DIFF=DSTR*COND*(DIFFN/DIFFD)
+      PRINT*,DIFF,ETA
+      PRINT*,T,SE,DSTR,ETASTR
+      
+      STOP
+      END
+C
